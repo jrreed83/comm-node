@@ -1,0 +1,19 @@
+{
+  "name": "comm-node",
+  "version": "1.0.0",
+  "description": "A service for communications and signal processing algorithms",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrreed83/comm-node.git"
+  },
+  "author": "Joey Reed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrreed83/comm-node/issues"
+  },
+  "homepage": "https://github.com/jrreed83/comm-node#readme"
+}
