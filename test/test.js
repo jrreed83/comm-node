@@ -1,10 +1,11 @@
 const {assert} = require('chai');
 
+const {zeros} = require('../matched-filter');
+
 describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal(-1, [1,2,3].indexOf(4));
-      assert.equal( 1, [1,2,3].indexOf(2));
+  describe('#zeros()', function() {
+    it('should return 5 zeros', function() {
+      assert.deepEqual([0,0,0,0,0], zeros(5));
     });
   });
 });

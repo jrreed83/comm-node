@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/jrreed83/comm-node#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "ramda": "^0.23.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
