@@ -4,7 +4,8 @@
   "description": "A service for communications and signal processing algorithms",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/jrreed83/comm-node/issues"
   },
-  "homepage": "https://github.com/jrreed83/comm-node#readme"
+  "homepage": "https://github.com/jrreed83/comm-node#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }
