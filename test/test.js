@@ -1,11 +1,25 @@
 const {assert} = require('chai');
 
-const {zeros} = require('../matched-filter');
+const {buildFilter, raisedCosineFilter} = require('../matched-filter');
 
-describe('Array', function() {
-  describe('#zeros()', function() {
-    it('should return 5 zeros', function() {
-      assert.deepEqual([0,0,0,0,0], zeros(5));
+describe('Matched-Filter', function() {
+  describe('#raisedCosineFilter()', function() {
+    let sampsPerSymbol = 16;
+    let rollOff        = 0.5;
+    let nSymbs         = 5;
+    let obj = {
+      sampsPerSymbol,
+      rollOff,
+      nSymbs
+    };
+    
+    let filter = raisedCosineFilter(obj);    
+
+    it('0 maps to 1', function() {
+      assert.equal(1, filter.tap(0));
     });
+    it('length', function() {
+      assert.equal(81, filter.len())
+    })
   });
 });
