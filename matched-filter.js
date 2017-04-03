@@ -31,7 +31,7 @@ function buildFilter(fn) {
             return inner([fi, ...taps, fi],i+1);
         }
     }
-    return inner(f0,1);
+    return inner([f0],1);
 
 }
 // We are explicitly taking advantage of the fact that the filter
