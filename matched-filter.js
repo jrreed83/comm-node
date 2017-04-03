@@ -25,9 +25,49 @@ function dot(x,y) {
     return result;
 }
 
+// Build a symmetric FIR filter
+function buildFilter(fn) {
+
+    let f0 = fn.tap(0);
+    let n  = (fn.len() - 1)/2;
+
+    function inner(taps,i) {
+        if (i > n) {
+            return taps;
+        } else {
+            let fi = fn(i);
+            return inner([fi, ...taps, fi],i+1);
+        }
+    }
+    return inner(f0,1);
+
+}
 // We are explicitly taking advantage of the fact that the filter
 // is symmetric about 0
-function raisedCosineFilter(beta, sps, nSymbs) {
+function raisedCosineFilter(obj) {
+    let {sampsPerSymbol, nSymbs, rollOff} = obj;
+
+    function tap(i) {
+        let xi;
+        if (i === (sampsPerSymbol / (2*rollOff))) {
+            xi = Math.PI * sinc(0.5/rollOff);
+        } else {
+            let ii = i / sampsPerSymbol;
+            xi = sinc(ii) * Math.cos(Math.PI * rollOff * ii) / (1 - Math.pow(2.0 * rollOff * ii,2));           
+        }
+
+        return xi;
+    }
+
+    function len() {
+
+    }
+
+    return {
+        tap,
+        len,
+    };
+    
     let n  = sps * nSymbs / 2;
 
     function inner(coeffs,i) {
@@ -49,7 +89,7 @@ function raisedCosineFilter(beta, sps, nSymbs) {
         }
     }
 
-    return inner([1.0],1,n);
+    return inner([1.0],1);
 }
 
 function rootRaisedCosineFilter(beta, sps, nSymbs) {
@@ -80,8 +120,9 @@ function rootRaisedCosineFilter(beta, sps, nSymbs) {
         }
     }
     let x0 = 1 - beta + 4*(beta / Math.PI);
-    return inner([x0],1,n);
+    return inner([x0],1);
 }
+
 function filterBank(taps, numPaths) {
     const tapsPerPath = taps.length / numPaths;
     let i;
