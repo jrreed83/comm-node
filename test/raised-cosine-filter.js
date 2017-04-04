@@ -1,6 +1,7 @@
-const {assert} = require('chai');
+const {expect} = require('chai');
 
-const {buildFilter, raisedCosineFilter} = require('../matched-filter');
+const {rcosine}          = require('../src/raised-cosine-filter');
+const {numTaps,buildFir} = require('../src/fir-builder');
 
 describe('Matched-Filter', function() {
   describe('#raisedCosineFilter()', function() {
@@ -10,16 +11,16 @@ describe('Matched-Filter', function() {
 
     let obj = { sampsPerSymbol, rollOff, nSymbs };
     
-    let filter = raisedCosineFilter(obj);    
-    let taps   = buildFilter(filter);
+    let fn = rcosine(obj);    
+    let n  = numTaps(obj);
 
     it('0 maps to 1', function() {
-      assert.equal(1, filter.tap(0));
+      expect(1).to.equal(fn(0));
     });
 
     it('has correct length', function() {
-      assert.equal(81, filter.len())
-      assert.equal(81, taps.length);
+      let taps = buildFir(fn, n);
+      expect(taps.length).to.equal(n);
     })
 
     it('is symmetric', function() {
